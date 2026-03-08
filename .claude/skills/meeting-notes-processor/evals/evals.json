@@ -1,0 +1,128 @@
+{
+  "skill_name": "meeting-notes-processor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you process these meeting notes for me?\n\n---\nMeeting Date: March 5, 2025\n\nParticipants: Sarah (PM), James (Eng Lead), Priya (Design), Tom (CEO)\n\nTom: Alright, let's get started. The main thing I want to cover today is where we stand on the mobile app redesign and what needs to happen before we can go to beta.\n\nSarah: So we're about 70% done on design. Priya, do you want to walk through what's left?\n\nPriya: Sure. The main outstanding piece is the onboarding flow. We have three variants and we haven't picked one yet. I need a decision on that by end of week or we'll slip the timeline.\n\nTom: Can we just pick one now? What are the options?\n\nPriya: Option A is a carousel with 4 steps, Option B is a single-screen with progressive disclosure, and Option C is skippable entirely with a tooltip system. My recommendation is B — it tested best with the 12 users we interviewed.\n\nTom: Let's go with B. James, does that affect your implementation timeline?\n\nJames: Slightly — B requires some state management work we hadn't scoped. I'd say it adds about 3 days. So we're looking at March 28th for engineering complete instead of March 25th.\n\nSarah: OK so beta would then be April 7th assuming a week of QA. Tom, are you OK with that?\n\nTom: Yes, April 7th beta is fine. But I want weekly status updates from here until then. Sarah, can you own that?\n\nSarah: Absolutely. I'll send the first one this Friday.\n\nJames: One more thing — we still don't have a decision on push notification permissions. Do we ask on first launch or after the user has seen value?\n\nTom: Let's not decide that today, but someone needs to pull the research on this. Priya, can you look into what competitors do and come back with a rec?\n\nPriya: I can have that by next Wednesday.\n\nSarah: Also — James, can you share the updated API docs with the QA team before we kick off testing?\n\nJames: Yeah, I'll do that by March 15th.\n\nTom: Great. I think that's everything. Let's wrap up.",
+      "expected_output": "A markdown file saved to ~/meeting-notes/ named 2025-03-05-mobile-app-redesign-beta-planning.md (or similar) containing: executive summary, key topics, decisions (onboarding Option B chosen, April 7 beta date), action items grouped by Sarah/James/Priya/Tom, and open question about push notifications.",
+      "assertions": [
+        {
+          "name": "file_saved_to_meeting_notes_dir",
+          "description": "A markdown file was written to ~/meeting-notes/",
+          "type": "file_exists_pattern",
+          "pattern": "~/meeting-notes/*.md"
+        },
+        {
+          "name": "filename_includes_date",
+          "description": "File name starts with 2025-03-05",
+          "type": "filename_contains",
+          "value": "2025-03-05"
+        },
+        {
+          "name": "executive_summary_present",
+          "description": "Output contains an Executive Summary section",
+          "type": "content_contains",
+          "value": "Executive Summary"
+        },
+        {
+          "name": "decisions_section_present",
+          "description": "Output contains a Decisions Made section",
+          "type": "content_contains",
+          "value": "Decisions Made"
+        },
+        {
+          "name": "action_items_by_person",
+          "description": "Action items are grouped under individual names (Sarah, James, Priya)",
+          "type": "content_contains_all",
+          "values": ["Sarah", "James", "Priya"]
+        },
+        {
+          "name": "onboarding_decision_captured",
+          "description": "The decision to go with Option B for onboarding is recorded",
+          "type": "content_contains",
+          "value": "Option B"
+        },
+        {
+          "name": "open_question_captured",
+          "description": "The push notification question is captured as an open question",
+          "type": "content_contains",
+          "value": "push notification"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Hey process this real quick\n\nQ3 Budget Review — June 12\n\nAttendees: Marcus (CFO), Diana (Head of Sales), Kevin (Head of Marketing), Lena (COO)\n\nMarcus: OK so we're 5.2M into Q3 against a 6M budget. Sales is tracking well but marketing overspent.\n\nKevin: Yeah we went over on the conference spend — about 80k over. The ROI was good though, we closed three enterprise accounts from that conference.\n\nDiana: Which brought in 600k TCV so I'd say it was worth it.\n\nMarcus: Agreed, but we still need to reforecast. Kevin, I need you to submit a revised marketing budget for Q4 by June 20th.\n\nKevin: Done.\n\nLena: While we're here — we haven't made a call on whether to renew the Salesforce contract. That's up for renewal July 1st and it's a 200k decision.\n\nMarcus: We need to decide that by June 25th at the latest. Diana, can you pull usage stats and come back with a recommendation?\n\nDiana: I'll have it by June 19th.\n\nLena: Also Marcus, can you loop in legal on the renewal terms? There were some clauses last time that needed review.\n\nMarcus: I'll reach out to them this week.\n\nKevin: One thing I flagged internally — our current attribution model might be undercounting offline conversions. I brought it up with the data team but we haven't figured out a fix yet.\n\nLena: Let's table that for the next meeting but someone should own it.\n\nKevin: I can own scoping a fix, just need some runway.\n\nMarcus: OK let's close out. Lena, can you send the Q3 summary deck to the board by June 15th?\n\nLena: Will do.",
+      "expected_output": "A markdown file saved to ~/meeting-notes/ named 2025-06-12-q3-budget-review.md (or similar). Action items: Kevin (revised Q4 budget, attribution fix scoping), Diana (Salesforce usage stats + recommendation), Marcus (loop in legal), Lena (board deck). Open question or note about attribution model.",
+      "assertions": [
+        {
+          "name": "file_saved",
+          "description": "A markdown file was written to ~/meeting-notes/",
+          "type": "file_exists_pattern",
+          "pattern": "~/meeting-notes/*.md"
+        },
+        {
+          "name": "date_in_filename",
+          "description": "File name includes 2025-06-12",
+          "type": "filename_contains",
+          "value": "2025-06-12"
+        },
+        {
+          "name": "all_four_action_owners",
+          "description": "Action items listed under Marcus, Diana, Kevin, and Lena",
+          "type": "content_contains_all",
+          "values": ["Marcus", "Diana", "Kevin", "Lena"]
+        },
+        {
+          "name": "salesforce_decision_noted",
+          "description": "Salesforce renewal decision is captured",
+          "type": "content_contains",
+          "value": "Salesforce"
+        },
+        {
+          "name": "attribution_model_question",
+          "description": "Attribution model issue is captured (as action item or open question)",
+          "type": "content_contains",
+          "value": "attribution"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Can you summarize this for me and save it\n\nSprint Planning — Engineering Team\n\nPresent: Alex (Eng), Bea (Eng), Carlos (EM), Fatima (QA), Jordan (Product)\n\nJordan: So this sprint we're targeting the notification system refactor and the dashboard performance work. Both have been on the backlog too long.\n\nCarlos: Agreed. Alex, you were looking at the notification refactor last sprint — where did that land?\n\nAlex: I got through the backend changes but the frontend bindings are still a mess. I'd estimate 5 points for cleanup.\n\nCarlos: Let's scope it at 5 then. Bea, can you pair with Alex on the frontend side? You know that codebase better.\n\nBea: Sure, I can do that.\n\nFatima: I want to flag that the dashboard performance fix needs a regression test suite before we ship it. We got burned last time. I'll write those tests but I need the ticket scoped properly first — right now it's vague.\n\nCarlos: Jordan, can you update the ticket with acceptance criteria before EOD tomorrow?\n\nJordan: Yes, I'll do that.\n\nFatima: Once that's done I can start on the tests. Probably 3 days of work.\n\nAlex: One thing I didn't see in the sprint — what happened to the auth token refresh bug? That was P1 last week.\n\nCarlos: It's deprioritized. The customer affected found a workaround. We'll revisit next sprint.\n\nJordan: I want to make sure we don't lose track of it though. Can someone just drop a note in the ticket that it's deferred to next sprint?\n\nCarlos: I'll do that after this.\n\nBea: Also — we still haven't decided whether we're using the new design tokens or the legacy ones for the dashboard. That's going to affect implementation.\n\nJordan: Good catch. I'll check with design today and let the team know by EOD.\n\nCarlos: OK I think we have enough to get started. Let's go.",
+      "expected_output": "Markdown file saved to ~/meeting-notes/ named something like 2025-sprint-planning-engineering.md (date unknown — should either ask user or handle gracefully). Action items: Carlos (update auth token ticket), Jordan (acceptance criteria for dashboard ticket, check design tokens). Bea pairs with Alex on notification frontend (could be action item). Fatima (write regression tests once ticket updated). Decision to deprioritize auth token bug noted.",
+      "assertions": [
+        {
+          "name": "file_saved",
+          "description": "A markdown file was written to ~/meeting-notes/",
+          "type": "file_exists_pattern",
+          "pattern": "~/meeting-notes/*.md"
+        },
+        {
+          "name": "handles_missing_date",
+          "description": "Skill either asked user for date or handled missing date gracefully (used today or placeholder)",
+          "type": "content_contains_any",
+          "values": ["date", "Date", "DATE", "unknown", "Unknown"]
+        },
+        {
+          "name": "action_items_present",
+          "description": "Action items section exists with individual owners",
+          "type": "content_contains",
+          "value": "Action Items"
+        },
+        {
+          "name": "design_token_open_question",
+          "description": "Design tokens question captured as open question or action item for Jordan",
+          "type": "content_contains",
+          "value": "design token"
+        },
+        {
+          "name": "auth_token_deprioritization_noted",
+          "description": "Decision to defer auth token bug is captured",
+          "type": "content_contains_any",
+          "values": ["auth token", "P1", "deprioritized", "deferred"]
+        }
+      ]
+    }
+  ]
+}
